@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 2rem;
+}
+
+.spinner {
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+.sm { width: 18px; height: 18px; }
+.md { width: 32px; height: 32px; }
+.lg { width: 48px; height: 48px; }
+
+.text {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

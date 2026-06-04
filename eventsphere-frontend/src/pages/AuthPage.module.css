@@ -1,0 +1,324 @@
+/* ─── Page shell ─────────────────────────────────────────────── */
+.page {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: var(--bg);
+}
+
+/* ─── Card ───────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.cardWide {
+  max-width: 640px;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+.cardHeader {
+  margin-bottom: 1.75rem;
+}
+
+.logoMark {
+  width: 44px;
+  height: 44px;
+  background: var(--primary-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.logoMark svg {
+  width: 22px;
+  height: 22px;
+  color: var(--primary);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+/* ─── Form ───────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 540px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .card { padding: 1.75rem 1.25rem; }
+}
+
+/* ─── Field ──────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.required {
+  color: var(--error);
+  margin-left: 2px;
+}
+
+.hint {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ─── Inputs ─────────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  padding: 0.6rem 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input::placeholder { color: var(--text-muted); }
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.input:disabled {
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.inputError {
+  border-color: var(--error) !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
+
+.fieldError {
+  font-size: 0.775rem;
+  color: var(--error);
+  font-weight: 500;
+}
+
+/* ─── Password wrapper ───────────────────────────────────────── */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputWithBtn {
+  padding-right: 2.75rem !important;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: color 0.15s, background 0.15s;
+}
+
+.eyeBtn:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.eyeBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ─── CAPTCHA ────────────────────────────────────────────────── */
+.captchaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.captchaImg {
+  height: 56px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+
+.captchaImg:hover {
+  opacity: 0.85;
+  border-color: var(--primary);
+}
+
+.captchaPlaceholder {
+  height: 56px;
+  width: 160px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.captchaSpinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+.refreshBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s, transform 0.2s;
+}
+
+.refreshBtn:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: rotate(45deg);
+}
+
+.refreshBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.refreshBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ─── Submit button ──────────────────────────────────────────── */
+.submitBtn {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footerLink {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+/* ─── Divider ────────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.25rem 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

@@ -1,0 +1,92 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent:          #5B3CF5;
+  --accent-hover:    #4c32d4;
+  --accent-light:    #EEF2FF;
+
+  --success-bg:      #ECFDF5;
+  --success-text:    #166534;
+  --completed-bg:    #F4F4F5;
+  --completed-text:  #52525B;
+  --error:           #dc2626;
+  --error-bg:        #fef2f2;
+  --error-border:    #fecaca;
+  --info:            #2563eb;
+  --info-bg:         #eff6ff;
+  --info-border:     #bfdbfe;
+  --warning:         #d97706;
+  --warning-bg:      #fffbeb;
+  --warning-border:  #fde68a;
+
+  --bg:              #F7F6F3;
+  --surface:         #FFFFFF;
+  --surface-2:       #F4F4F5;
+
+  --border:          #E4E4E7;
+  --border-hover:    #D4D4D8;
+
+  --text:            #1A1A1A;
+  --text-secondary:  #3F3F46;
+  --text-muted:      #71717A;
+  --text-inverse:    #FFFFFF;
+
+  --radius-sm:  6px;
+  --radius:     8px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+
+  --shadow-card-hover: 0 2px 8px rgba(0,0,0,0.08);
+
+  /* keep old vars for components that still reference them */
+  --primary:         #5B3CF5;
+  --primary-hover:   #4c32d4;
+  --primary-light:   #EEF2FF;
+  --primary-glow:    rgba(91,60,245,0.15);
+  --success:         #059669;
+  --success-border:  #a7f3d0;
+  --border-strong:   #D4D4D8;
+  --text-inverse:    #FFFFFF;
+  --shadow-sm:       0 1px 2px rgba(0,0,0,.05);
+  --shadow:          0 1px 3px rgba(0,0,0,.06);
+  --shadow-lg:       0 4px 16px rgba(0,0,0,.08);
+  --shadow-focus:    0 0 0 2px var(--accent);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+input, select, textarea { font-family: inherit; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+
+/* Global focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

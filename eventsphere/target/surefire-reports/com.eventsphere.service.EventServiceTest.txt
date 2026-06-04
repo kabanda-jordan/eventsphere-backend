@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.eventsphere.service.EventServiceTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.217 s -- in com.eventsphere.service.EventServiceTest

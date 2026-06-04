@@ -1,0 +1,75 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: eventsphere-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eventsphere
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:lock123}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: public
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kabandajordan784@gmail.com
+    password: aiaf iiax ouux yabf
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=5m
+
+jwt:
+  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+  expiration: 86400000
+  refresh-expiration: 604800000
+
+captcha:
+  type: kaptcha
+
+otp:
+  expiry-minutes: 5
+  length: 6
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5460}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true
+  show-actuator: false
+  packages-to-scan: com.eventsphere.controller

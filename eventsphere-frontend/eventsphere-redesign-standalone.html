@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSphere - Upcoming Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #F7F6F3;
+      --surface: #FFFFFF;
+      --text-primary: #1A1A1A;
+      --text-muted: #71717A;
+      --accent: #5B3CF5;
+      --border: #E4E4E7;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ━━━ NAVBAR ━━━ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 52px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .logo-box {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 150ms;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      padding: 0 14px;
+      background: var(--accent);
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 150ms;
+    }
+
+    .btn-primary:hover {
+      background: #4C2FD4;
+    }
+
+    /* ━━━ PAGE ━━━ */
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 48px 60px;
+    }
+
+    /* ━━━ HEADER ━━━ */
+    .header {
+      margin-bottom: 32px;
+    }
+
+    .title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 38px;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin: 0 0 6px 0;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* ━━━ TOOLBAR ━━━ */
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .search-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 14px;
+      height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 150ms;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+    }
+
+    .search-box svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .status-select {
+      width: 120px;
+      height: 44px;
+      padding: 0 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: border-color 150ms;
+    }
+
+    .status-select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    /* ━━━ GRID ━━━ */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    /* ━━━ CARD ━━━ */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: all 150ms ease;
+    }
+
+    .card:hover {
+      border-color: #D4D4D8;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0 10px;
+      height: 20px;
+      line-height: 20px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .seats {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 4px 0;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0 0 14px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .metadata {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .meta-row svg {
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .card-divider {
+      height: 1px;
+      background: #F4F4F5;
+      margin: 14px 0;
+    }
+
+    .cta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+      text-align: left;
+    }
+
+    .cta-link {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 150ms;
+    }
+
+    .cta-link:hover {
+      opacity: 0.8;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      animation: fadeInUp 240ms ease-out both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0ms; }
+    .card:nth-child(2) { animation-delay: 50ms; }
+    .card:nth-child(3) { animation-delay: 100ms; }
+    .card:nth-child(4) { animation-delay: 150ms; }
+    .card:nth-child(5) { animation-delay: 200ms; }
+
+    @media (max-width: 768px) {
+      .nav-inner, .page {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .toolbar {
+        flex-direction: column;
+      }
+      .status-select {
+        width: 100%;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="brand">
+        <div class="logo-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <span class="brand-name">EventSphere</span>
+      </a>
+      <div class="nav-right">
+        <a href="#" class="nav-link">Events</a>
+        <div class="divider"></div>
+        <a href="#" class="nav-link">Sign in</a>
+        <a href="#" class="btn-primary">Get started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="title">Upcoming Events</h1>
+      <p class="subtitle">5 events available</p>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" placeholder="Search by title or location…" class="search-input">
+      </div>
+      <select class="status-select">
+        <option value="">All statuses</option>
+        <option value="ACTIVE">Active</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="CANCELLED">Cancelled</option>
+      </select>
+    </div>
+
+    <!-- Event Cards Grid -->
+    <div class="grid">
+      <!-- Card 1: Past Event -->
+      <article class="card">
+        <div class="card-top">
+          <span class="badge" style="background-color: #F4F4F5; color: #52525B;">COMPLETED</span>
+          <span class="seats">0/100</span>
+        </div>
+        <h2 class="card-title">Past Event</h2>
+        <p class="card-desc">Already happened</p>
+        <div class="metadata">
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>3 May 2026, 14:05</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>Hall A</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Admin User</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+      </article>
+
+      <!-- Card 2: Upcoming Event -->
+      <article class="card">
+        <div class="card-top">
+          <span class="badge" style="background-color: #ECFDF5; color: #166534;">ACTIVE</span>
+          <span class="seats">1/50</span>
+        </div>
+        <h2 class="card-title">Upcoming Event</h2>
+        <p class="card-desc">Future event</p>
+        <div class="metadata">
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>23 May 2026, 14:05</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>Hall B</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Admin User</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="cta">
+          <a href="#" class="cta-link">Sign in</a> to register for this event
+        </p>
+      </article>
+
+      <!-- Card 3: Admin Event -->
+      <article class="card">
+        <div class="card-top">
+          <span class="badge" style="background-color: #ECFDF5; color: #166534;">ACTIVE</span>
+          <span class="seats">0/20</span>
+        </div>
+        <h2 class="card-title">Admin Event</h2>
+        <p class="card-desc">Created by admin</p>
+        <div class="metadata">
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>20 Jun 2026, 18:00</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>Main Hall</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Admin User</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="cta">
+          <a href="#" class="cta-link">Sign in</a> to register for this event
+        </p>
+      </article>
+
+      <!-- Card 4: Admin Event Updated -->
+      <article class="card">
+        <div class="card-top">
+          <span class="badge" style="background-color: #ECFDF5; color: #166534;">ACTIVE</span>
+          <span class="seats">1/25</span>
+        </div>
+        <h2 class="card-title">Admin Event Updated</h2>
+        <p class="card-desc">Updated</p>
+        <div class="metadata">
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>21 Jun 2026, 18:00</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>Conference Room</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Admin User</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="cta">
+          <a href="#" class="cta-link">Sign in</a> to register for this event
+        </p>
+      </article>
+
+      <!-- Card 5: School Meeting -->
+      <article class="card">
+        <div class="card-top">
+          <span class="badge" style="background-color: #ECFDF5; color: #166534;">ACTIVE</span>
+          <span class="seats">0/100</span>
+        </div>
+        <h2 class="card-title">School Meeting</h2>
+        <p class="card-desc">School-wide assembly</p>
+        <div class="metadata">
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>1 Jun 2026, 09:30</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>School Main Hall</span>
+          </div>
+          <div class="meta-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Admin User</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="cta">
+          <a href="#" class="cta-link">Sign in</a> to register for this event
+        </p>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
