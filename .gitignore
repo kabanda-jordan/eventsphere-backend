@@ -1,0 +1,13 @@
+@"
+# Compiled files
+/target/
+
+# IDE files
+.idea/
+.vscode/
+
+# Sensitive or temporary files
+captcha.png
+*.log
+.env
+"@ | Out-File -FilePath .gitignore -Encoding utf8
